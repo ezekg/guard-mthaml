@@ -1,5 +1,4 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
+require "./lib/guard/mthaml"
 
 ###
 # Sample Guardfile block for Guard::MtHaml
@@ -12,4 +11,4 @@
 # :static_files    (false)       compile haml to static html
 # :run_at_start    (true)        compile files when guard starts
 ###
-guard :mthaml, :input => "tests/php", :output => "tests"
+guard :mthaml, :input => "tests/twig", :output => "tests"

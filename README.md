@@ -17,6 +17,7 @@ $ guard init mthaml
 ```
 
 ## Usage
+Requires that `php` be executable via command line.
 
 ```ruby
 ###

@@ -94,7 +94,7 @@ class MtHamlCompiler {
         if( isset( $opts['input'] ) ) {
             $this->input_file = $opts['input'];
         } else {
-            throw new \Exception( "No input file was passed into \$opts." );
+            throw new \Exception( self::colorize( "No input file was passed into \$opts.", ";31" ) );
         }
 
         /**
@@ -103,7 +103,7 @@ class MtHamlCompiler {
         if( isset( $opts['output'] ) ) {
             $this->output_dir = $opts["output"];
         } else {
-            throw new \Exception( "No output directory was passed into \$opts." );
+            throw new \Exception( self::colorize( "No output directory was passed into \$opts.", ";31" ) );
         }
 
         /**
@@ -112,7 +112,7 @@ class MtHamlCompiler {
         if( isset( $opts['options'] ) ) {
             $this->options = $opts['options'];
         } else {
-            throw new \Exception( "No options were passed into \$opts." );
+            throw new \Exception( self::colorize( "No options were passed into \$opts.", ";31" ) );
         }
 
         /**
@@ -121,7 +121,7 @@ class MtHamlCompiler {
         if( isset( $this->options['environment'] ) ) {
             $this->environment = $this->options['environment'];
         } else {
-            throw new \Exception( "No environment was passed into \$opts." );
+            throw new \Exception( self::colorize( "No environment was passed into \$opts.", ";31" ) );
         }
 
         // Set the MtHaml environment
@@ -173,7 +173,7 @@ class MtHamlCompiler {
                     "cache" => $this->output_dir . '/cache',
                 ));
             } else {
-                throw new \Exception("To compile static files, please set your environment to PHP. It is currently set to `$this->environment`.");
+                throw new \Exception(self::colorize( "To compile static files, please set your environment to PHP. It is currently set to `$this->environment`.", ";31" ) );
             }
             // Compile assets
             return $this->executor->render( $this->input_file, array() );
@@ -209,7 +209,7 @@ class MtHamlCompiler {
         }
         // If dir is still not writable, throw err
         if ( ! is_writable( $dir ) ) {
-            throw new \Exception("It looks like the directory `$dir` isn't writable.");
+            throw new \Exception( self::colorize( "It looks like the directory `$dir` isn't writable.", ";31" ) );
         }
     }
 
@@ -226,8 +226,20 @@ class MtHamlCompiler {
             // Render output
             return file_put_contents( "$this->output_dir/" . basename( $this->input_file, ".haml" ) . ".$extension", $this->output );
         } else {
-            throw new \Exception( "It looks like `" . basename( $this->input_file ) . "` compiled without any output." );
+            throw new \Exception( self::colorize( "It looks like `" . basename( $this->input_file ) . "` compiled without any output.", ";33" ) );
         }
+    }
+
+    /**
+     * Colorize output messages to terminal
+     *
+     * @param {String} $message
+     * @param {String} $color
+     *
+     * @since 0.2.0
+     */
+    private function colorize($message, $color) {
+        return "\e[0$color" . "m" . "$message\e[0m";
     }
 }
 
