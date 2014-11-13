@@ -1,6 +1,7 @@
 # Guard::MtHaml [![Gem Version](https://badge.fury.io/rb/guard-mthaml.svg)](http://badge.fury.io/rb/guard-mthaml)
 This is a Guard wrapper to compile Haml to PHP, Twig or static HTML.
 
+# Installation
 Add to your `Gemfile`:
 ```ruby
 gem 'guard-mthaml'
@@ -33,3 +34,9 @@ Requires that `php` be executable via command line.
 ###
 guard :mthaml, :input => "views/src", :output => "views"
 ```
+
+## Authors
+[Ezekiel Gabrielse](http://ezekielg.com)
+
+## License
+Graphite is available under the [MIT](http://opensource.org/licenses/MIT) license.
