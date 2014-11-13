@@ -60,6 +60,14 @@ class MtHamlCompiler {
 
     /**
      * @var {Object}
+     *   Instance of \MtHaml\Support\Php\Executor used to compile static files
+     *
+     * @since 0.1.0
+     */
+    private $executor;
+
+    /**
+     * @var {Object}
      *   Instance of \MtHaml\Environment
      *
      * @since 0.1.0

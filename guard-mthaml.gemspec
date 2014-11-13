@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
 
     s.add_dependency "guard", ">= 1.1.0"
 
-    s.files = Dir.glob("{lib}/**/*") + Dir.glob("{vendor}/**/*") + %w[README.md]
+    s.files = Dir.glob("{lib}/**/*") + Dir.glob("{vendor}/**/*") + %w[README.md LICENSE.md]
     s.require_path = "lib"
 end
