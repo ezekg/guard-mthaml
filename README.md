@@ -1,4 +1,4 @@
-# Guard::MtHaml
+# Guard::MtHaml [![Gem Version](https://badge.fury.io/rb/guard-mthaml.svg)](http://badge.fury.io/rb/guard-mthaml)
 This is a Guard wrapper to compile Haml to PHP, Twig or static HTML.
 
 Add to your `Gemfile`:
@@ -30,5 +30,5 @@ $ guard init mthaml
 # :static_files    (false)       compile haml to static html
 # :run_at_start    (true)        compile files when guard starts
 ###
-guard :haml, :input => "views/src", :output => "views"
+guard :mthaml, :input => "views/src", :output => "views"
 ```
