@@ -1,7 +1,7 @@
 # Guard::MtHaml [![Gem Version](https://badge.fury.io/rb/guard-mthaml.svg)](http://badge.fury.io/rb/guard-mthaml)
 This is a Guard wrapper to compile Haml to PHP, Twig or static HTML.
 
-# Installation
+## Installation
 Add to your `Gemfile`:
 ```ruby
 gem 'guard-mthaml'
@@ -34,6 +34,12 @@ Requires that `php` be executable via command line.
 ###
 guard :mthaml, :input => "views/src", :output => "views"
 ```
+
+## Filters
+Currently, only support for Markdown and CoffeeScript is available. I will eventually support Sass (pull requests are welcome). _MtHaml doesn't have a way of disabling the runtime variables inside of filters when attempting to use interpolation (`#{$var}`); this is a known issue that needs to be addressed within MtHaml before it can be included into this plugin._
+
+* [CoffeeScript](https://github.com/alxlit/coffeescript-php/)
+* [Markdown](https://github.com/michelf/php-markdown)
 
 ## Authors
 [Ezekiel Gabrielse](http://ezekielg.com)
