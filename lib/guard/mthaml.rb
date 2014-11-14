@@ -1,6 +1,7 @@
 require "guard"
 require "guard/plugin"
 require "guard/watcher"
+require "pathname"
 
 module Guard
     class MtHaml < Plugin
@@ -15,8 +16,8 @@ module Guard
                 :environment => "php",
                 :notifications => true,
                 :compress_output => false,
-                :run_at_start => true,
-                :static_files => false
+                :static_files => false,
+                :run_at_start => true
             }.merge(options)
 
             super(options)
@@ -33,10 +34,16 @@ module Guard
             run_all if options[:run_at_start]
         end
 
+        ###
+        # Stop running
+        ###
         def stop
             true
         end
 
+        ###
+        # On Guard reload
+        ###
         def reload
             run_all
         end
@@ -71,6 +78,15 @@ module Guard
 
                 compile_haml(input_file, output_dir)
             end
+        end
+
+        ###
+        # Called when a watched file is removed
+        #
+        # @param {Array} paths
+        #   Paths of changed files
+        ####
+        def run_on_removals(paths)
         end
 
         private

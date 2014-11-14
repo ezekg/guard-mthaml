@@ -68,7 +68,7 @@ class MtHamlCompiler {
 
     /**
      * @var {Object}
-     *   Instance of \MtHaml\Environment
+     *   Instance of \MtHaml\Environment used to compile files
      *
      * @since 0.1.0
      */
