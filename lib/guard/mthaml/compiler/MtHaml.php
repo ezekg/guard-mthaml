@@ -137,6 +137,18 @@ class MtHamlCompiler {
     }
 
     /**
+     * Colorize output messages to terminal
+     *
+     * @param {String} $message
+     * @param {String} $color
+     *
+     * @since 0.2.0
+     */
+    public static function colorize($message, $color) {
+        return "\e[0$color" . "m" . "$message\e[0m";
+    }
+
+    /**
      * Runs compiler and writes contents to output file
      *
      * @since 0.1.0
@@ -237,18 +249,6 @@ class MtHamlCompiler {
             throw new \Exception( self::colorize( "It looks like `" . basename( $this->input_file ) . "` compiled without any output.", ";33" ) );
         }
     }
-
-    /**
-     * Colorize output messages to terminal
-     *
-     * @param {String} $message
-     * @param {String} $color
-     *
-     * @since 0.2.0
-     */
-    private function colorize($message, $color) {
-        return "\e[0$color" . "m" . "$message\e[0m";
-    }
 }
 
 /**
@@ -271,5 +271,6 @@ try {
     ));
     $compiler->run();
 } catch ( \Exception $err ) {
-    exit ( $err->getMessage() . "\n" );
+    fwrite( STDERR, "Guard::MtHaml: " . MtHamlCompiler::colorize( $err->getMessage() . "\n", ";31" ) );
+    exit(1);
 }

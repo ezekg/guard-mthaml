@@ -11,4 +11,4 @@ require "./lib/guard/mthaml"
 # :static_files    (false)       compile haml to static html
 # :run_at_start    (true)        compile files when guard starts
 ###
-guard :mthaml, :input => "tests/twig", :output => "tests"
+guard :mthaml, input: "tests/php", output: "tests", compress_output: true
