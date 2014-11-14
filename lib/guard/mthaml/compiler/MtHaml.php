@@ -271,6 +271,6 @@ try {
     ));
     $compiler->run();
 } catch ( \Exception $err ) {
-    fwrite( STDERR, "Guard::MtHaml: " . MtHamlCompiler::colorize( $err->getMessage() . "\n", ";31" ) );
+    fwrite( STDERR, "Guard::MtHaml - " . MtHamlCompiler::colorize( $err->getMessage() . "\n", ";31" ) );
     exit(1);
 }
