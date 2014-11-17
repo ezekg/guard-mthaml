@@ -1,5 +1,5 @@
 # Guard::MtHaml [![Gem Version](https://badge.fury.io/rb/guard-mthaml.svg)](http://badge.fury.io/rb/guard-mthaml)
-This is a Guard wrapper to compile Haml to PHP, Twig or static HTML.
+This is a Guard wrapper for [MtHaml](https://github.com/arnaud-lb/MtHaml) to compile Haml to PHP, Twig or static HTML.
 
 ## Installation
 Add to your `Gemfile`:
@@ -24,8 +24,8 @@ Requires that `php` be executable via command line.
 ###
 # Sample Guardfile block for Guard::MtHaml
 #
-# :input           ("views/src") set output directory for compiled files
-# :output          ("views")     set input directory with haml files
+# :input           ("views/src") set input directory with haml files
+# :output          ("views")     set output directory for compiled files
 # :environment     ("php")       haml environment
 # :notifications   (true)        toggle guard notifications
 # :compress_output (false)       compress compiled haml files
