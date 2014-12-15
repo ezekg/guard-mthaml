@@ -46,7 +46,7 @@ class MtHamlCompiler {
      * @var {String}
      *   Extension of output file
      *
-     * @since 0.1.0
+     * @since 0.3.0
      */
     private $extension;
 
