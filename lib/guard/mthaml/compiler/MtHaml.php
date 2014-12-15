@@ -43,6 +43,14 @@ class MtHamlCompiler {
     private $environment;
 
     /**
+     * @var {String}
+     *   Extension of output file
+     *
+     * @since 0.1.0
+     */
+    private $extension;
+
+    /**
      * @var {Array}
      *   Array of options to be passed to MtHaml
      *
@@ -124,12 +132,21 @@ class MtHamlCompiler {
         }
 
         /**
-         * Get the environment
+         * Set the environment
          */
         if( isset( $this->options['environment'] ) ) {
             $this->environment = $this->options['environment'];
         } else {
             throw new \Exception( self::colorize( "No environment was passed into \$opts.", ";31" ) );
+        }
+
+        /**
+         * Set the output extension
+         */
+        if( isset( $this->options['extension'] ) ) {
+            $this->extension = $this->options['extension'];
+        } else {
+            $this->extension = $this->environment;
         }
 
         // Set the MtHaml environment
@@ -240,11 +257,10 @@ class MtHamlCompiler {
      */
     private function write() {
         if ( $this->output ) {
-            $extension = $this->options["static_files"] ? "html" : $this->environment;
             // Make sure our path is writable
             self::ensure_path_writable( $this->output_dir );
             // Render output
-            return file_put_contents( "$this->output_dir/" . basename( $this->input_file, ".haml" ) . ".$extension", $this->output );
+            return file_put_contents( "$this->output_dir/" . basename( $this->input_file, ".haml" ) . ".$this->extension", $this->output );
         } else {
             throw new \Exception( self::colorize( "It looks like `" . basename( $this->input_file ) . "` compiled without any output.", ";33" ) );
         }
@@ -254,7 +270,7 @@ class MtHamlCompiler {
 /**
  * Get passed arguments from Guard
  */
-$opts = getopt( "", array( "input:", "output:", "environment:", "static_files:", "compress_output:" ) );
+$opts = getopt( "", array( "input:", "output:", "environment:", "static_files:", "compress_output:", "extension:" ) );
 
 /**
  * Instantiate compiler and parse file with input from Guard
@@ -265,6 +281,7 @@ try {
         "output" => $opts["output"],
         "options" => array(
             "environment" => $opts["environment"],
+            "extension" => $opts["extension"],
             "static_files" => $opts["static_files"] === "true" ? true : false,
             "compress_output" => $opts["compress_output"] === "true" ? true : false
         )

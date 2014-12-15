@@ -11,14 +11,20 @@ module Guard
         ###
         def initialize(options = {})
             options = {
-                :input => "views/src",
-                :output => "views",
-                :environment => "php",
-                :notifications => true,
-                :compress_output => false,
-                :static_files => false,
-                :run_at_start => true
+                input: "views/src",
+                output: "views",
+                environment: "php",
+                extension: nil,
+                notifications: true,
+                compress_output: false,
+                static_files: false,
+                run_at_start: true
             }.merge(options)
+
+            # Define extension if environment is nil
+            if options[:extension].nil?
+                options[:extension] = if options[:static_files] then "html" else options[:environment] end
+            end
 
             super(options)
 
@@ -69,13 +75,23 @@ module Guard
                 input_dir = Pathname.new(options[:input]).realpath
                 input_file = file.realpath
 
-                unless input_dir == file_dir
-                    output_dir = Pathname.new(options[:output]).realpath + file_dir.basename
-                    make_directory(output_dir)
-                else
+                puts file, file_dir, input_dir, input_file
+
+                # Simple check to see if we need to create any directories in the output
+                if file_dir == input_dir
+                    # File looks like it's in the base directory
                     output_dir = Pathname.new(options[:output]).realpath
+                else
+                    # Looks like we need to create a directory or two
+                    output_dir = Pathname.new(options[:output]).realpath + file_dir.to_s.gsub(input_dir.to_s, "")[1..-1]
                 end
 
+                puts output_dir
+
+                # Make directories if they don't already exist
+                make_directory(output_dir)
+
+                # Initiate compiler
                 compile_haml(input_file, output_dir)
             end
         end
@@ -101,26 +117,21 @@ module Guard
         ###
         def compile_haml(input, output)
 
-            ext = if options[:static_files]
-                ".html"
-            else
-                ".#{options[:environment]}"
-            end
-
             command = [
                 "php #{File.dirname(__FILE__)}/mthaml/compiler/MtHaml.php",
                 "--input #{input}",
                 "--output #{output}",
                 "--environment #{options[:environment]}",
+                "--extension #{options[:extension]}",
                 "--static_files #{options[:static_files]}",
-                "--compress_output #{options[:compress_output]}"
+                "--compress_output #{options[:compress_output]}",
             ].join " "
 
             begin
                 throw :task_has_failed unless system command
-                ::Guard::UI.info(color("write #{File.basename(input, ".*") + ext}", ";32")) if options[:notifications]
+                ::Guard::UI.info(color("write #{File.basename(input, ".*")}.#{options[:extension]}", ";32")) if options[:notifications]
             rescue StandardError => error
-                ::Guard::UI.error(color("error #{File.basename(input, ".*") + ext} : #{error}", ";31")) if options[:notifications]
+                ::Guard::UI.error(color("error #{File.basename(input, ".*")}.#{options[:extension]} : #{error}", ";31")) if options[:notifications]
             end
         end
 
