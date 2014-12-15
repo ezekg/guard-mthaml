@@ -75,8 +75,6 @@ module Guard
                 input_dir = Pathname.new(options[:input]).realpath
                 input_file = file.realpath
 
-                puts file, file_dir, input_dir, input_file
-
                 # Simple check to see if we need to create any directories in the output
                 if file_dir == input_dir
                     # File looks like it's in the base directory
@@ -85,8 +83,6 @@ module Guard
                     # Looks like we need to create a directory or two
                     output_dir = Pathname.new(options[:output]).realpath + file_dir.to_s.gsub(input_dir.to_s, "")[1..-1]
                 end
-
-                puts output_dir
 
                 # Make directories if they don't already exist
                 make_directory(output_dir)
