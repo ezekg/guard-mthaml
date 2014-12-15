@@ -4,7 +4,7 @@ This is a Guard wrapper for [MtHaml](https://github.com/arnaud-lb/MtHaml) to com
 ## Installation
 Add to your `Gemfile`:
 ```ruby
-gem 'guard-mthaml'
+gem "guard-mthaml"
 ```
 
 Require in your `Guardfile`:
